@@ -38,7 +38,7 @@ jobs:
         dotnet-version: 5.0.x
     
     - name: Set Nuget Token
-      run: dotnet nuget update source -s ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
+      run: dotnet nuget update source ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
         
     - name: Restore dependencies
       run: dotnet restore ./src/Shimakaze.Tools.Csf/Serialization/Json
@@ -66,7 +66,7 @@ jobs:
         dotnet-version: 5.0.x
     
     - name: Set Nuget Token
-      run: dotnet nuget update source -s ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
+      run: dotnet nuget update source ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
         
     - name: Test
       run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Json -c Release
@@ -85,7 +85,7 @@ jobs:
         dotnet-version: 5.0.x
     
     - name: Set Nuget Token
-      run: dotnet nuget update source -s ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
+      run: dotnet nuget update source ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
         
     - name: Test
       run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Json -c Release
