@@ -1,0 +1,74 @@
+name: Build and Test Shimakaze.Tools.Csf
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - ".github/workflows/Shimakaze.Tools.Csf.Serialization.Json.yml"
+      - "src/Shimakaze.Tools.Csf/Serialization/Json/**"
+      - "test/Shimakaze.Tools.Csf/Serialization/Json/**"
+      
+  pull_request:
+    branches: [ master ]
+    paths:
+      - ".github/workflows/Shimakaze.Tools.Csf.Serialization.Json.yml"
+      - "src/Shimakaze.Tools.Csf/Serialization/Json/**"
+      - "test/Shimakaze.Tools.Csf/Serialization/Json/**"
+      
+jobs:
+
+  build-csf-Serialization-Json:
+    name: Build Shimakaze.Tools.Csf/Serialization/Json
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore ./src/Shimakaze.Tools.Csf/Serialization/Json
+      
+    - name: Build Shimakaze.Tools.Csf
+      run: dotnet build --no-restore ./src/Shimakaze.Tools.Csf/Serialization/Json -c Release
+      
+    - uses: actions/upload-artifact@v2
+      name: Upload Shimakaze.Tools.Csf to Artifacts
+      with:
+        name: Shimakaze.Tools.Csf
+        path: ./src/Shimakaze.Tools.Csf/Serialization/Json/bin/Release
+
+  test-linux-csf-Serialization-Json:
+    name: Test Shimakaze.Tools.Csf/Serialization/Json on GNU/Linux Operating System
+    needs: build-csf-Serialization-Json
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Test
+      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Json -c Release
+
+  test-windows-csf-Serialization-Json:
+    name: Test Shimakaze.Tools.Csf/Serialization/Json on Windows Operating System
+    needs: build-csf-Serialization-Json
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Test
+      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Json -c Release
