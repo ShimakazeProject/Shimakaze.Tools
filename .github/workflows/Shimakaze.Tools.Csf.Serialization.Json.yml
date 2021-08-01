@@ -18,6 +18,10 @@ on:
       - "test/Shimakaze.Tools.Csf/Serialization/Json/**"
       - "global.json"
       - "nuget.config"
+
+env:
+  NUGET_TOKEN: ${{ secrets.NUGETKEY }}
+  NUGET_USER: ${{ secrets.NUGET_USER }}
       
 jobs:
 
@@ -32,6 +36,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    
+    - name: Set Nuget Token
+      run: dotnet nuget update source -s ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
         
     - name: Restore dependencies
       run: dotnet restore ./src/Shimakaze.Tools.Csf/Serialization/Json
@@ -57,6 +64,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    
+    - name: Set Nuget Token
+      run: dotnet nuget update source -s ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
         
     - name: Test
       run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Json -c Release
@@ -73,6 +83,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    
+    - name: Set Nuget Token
+      run: dotnet nuget update source -s ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN"
         
     - name: Test
       run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Json -c Release
