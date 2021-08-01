@@ -1,4 +1,4 @@
-name: Build and Test Shimakaze.Tools.Csf
+name: Build and Test Shimakaze.Tools.Csf/Serialization/Json
 
 on:
   push:
