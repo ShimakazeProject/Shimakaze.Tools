@@ -48,7 +48,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       name: Upload Shimakaze.Tools.Csf to Artifacts
       with:
-        name: Shimakaze.Tools.Csf
+        name: artifact
         path: ./src/Shimakaze.Tools.Csf/Serialization/Json/bin/Release
 
   test-linux-csf-Serialization-Json:
