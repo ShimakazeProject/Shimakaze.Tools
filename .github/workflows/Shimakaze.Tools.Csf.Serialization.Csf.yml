@@ -20,7 +20,7 @@ on:
       - "nuget.config"
 
 env:
-  NUGET_TOKEN: ${{ secrets.NUGETKEY }}
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
   NUGET_USER: ${{ secrets.NUGET_USER }}
 
 jobs:
