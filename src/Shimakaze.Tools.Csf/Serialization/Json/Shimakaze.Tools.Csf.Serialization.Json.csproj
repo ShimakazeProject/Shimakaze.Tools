@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\InternalUtils\SystemExtersions.cs" />
+    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\SystemExtersions.cs" />
   </ItemGroup>
 
 </Project>

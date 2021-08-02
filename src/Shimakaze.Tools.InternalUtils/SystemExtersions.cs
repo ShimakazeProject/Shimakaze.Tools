@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shimakaze.Tools.Csf.InternalUtils
+namespace Shimakaze.Tools.InternalUtils
 {
     internal static class SystemExtersions
     {

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Shimakaze.Models.Csf;
-using Shimakaze.Tools.Csf.InternalUtils;
+using Shimakaze.Tools.InternalUtils;
 
 namespace Shimakaze.Tools.Csf.Serialization.Csf
 {

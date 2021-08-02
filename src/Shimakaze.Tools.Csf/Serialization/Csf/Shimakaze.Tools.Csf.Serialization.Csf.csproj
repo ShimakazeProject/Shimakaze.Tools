@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\InternalUtils\ByteArrayExtensions.cs" />
-    <Compile Include="..\..\InternalUtils\ByteUtils.cs" />
-    <Compile Include="..\..\InternalUtils\CsfUtils.cs" />
-    <Compile Include="..\..\InternalUtils\SystemExtersions.cs" />
+    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\ByteArrayExtensions.cs" />
+    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\ByteUtils.cs" />
+    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\CsfUtils.cs" />
+    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\SystemExtersions.cs" />
   </ItemGroup>
 
 </Project>

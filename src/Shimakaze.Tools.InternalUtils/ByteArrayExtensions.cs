@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Shimakaze.Tools.Csf.InternalUtils
+namespace Shimakaze.Tools.InternalUtils
 {
     internal static class ByteArrayExtensions
     {

@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using Shimakaze.Models.Csf;
-using Shimakaze.Tools.Csf.InternalUtils;
+using Shimakaze.Tools.InternalUtils;
 
 namespace Shimakaze.Tools.Csf.Serialization.Json.V2
 {
