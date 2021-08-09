@@ -52,7 +52,7 @@ namespace Shimakaze.Tools.Csf.Serialization.Json.Test
                     var position = msr.BaseStream.Position;
                     if (!Directory.Exists("Out"))
                         Directory.CreateDirectory("Out");
-                    using var ofs = File.OpenWrite(Path.Combine("Out", FaildJsonFileNameWithoutExtension + "Async.json"));
+                    using var ofs = File.Create(Path.Combine("Out", FaildJsonFileNameWithoutExtension + "Async.json"));
                     ms.Seek(0, SeekOrigin.Begin);
                     await ms.CopyToAsync(ofs);
                     throw new Exception("AsyncTest failed. difference at " + position);
