@@ -67,7 +67,7 @@ jobs:
     - name: Set Nuget Token
       run: dotnet nuget update source ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN" --store-password-in-clear-text        
     - name: Test
-      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Mix -c Release
+      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Mix.Test -c Release
 
   test-windows-csf-Serialization-Json:
     name: Test Shimakaze.Tools.Mix on Windows Operating System
@@ -85,4 +85,4 @@ jobs:
     - name: Set Nuget Token
       run: dotnet nuget update source ShimakazeProject -u "$env:NUGET_USER" -p "$env:NUGET_TOKEN" --store-password-in-clear-text        
     - name: Test
-      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Mix -c Release
+      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Mix.Test -c Release
