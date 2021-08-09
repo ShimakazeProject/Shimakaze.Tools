@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+
 namespace Shimakaze.Tools.InternalUtils
 {
     internal static class ByteUtils
@@ -16,6 +18,20 @@ namespace Shimakaze.Tools.InternalUtils
             if (!BitConverter.IsLittleEndian)
                 Array.Reverse(data);
             return BitConverter.ToInt32(data, start);
+        }
+        public static uint GetLittleEndianUInt32(byte[] raw, int start = 0)
+        {
+            byte[] data = (byte[])raw.Clone();
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            return BitConverter.ToUInt32(data, start);
+        }
+        public static short GetLittleEndianInt16(byte[] raw, int start = 0)
+        {
+            byte[] data = (byte[])raw.Clone();
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            return BitConverter.ToInt16(data, start);
         }
 
 
@@ -39,6 +55,23 @@ namespace Shimakaze.Tools.InternalUtils
                 tmp = data[i + 1];
                 data[i + 1] = data[i + 2];
                 data[i + 2] = tmp;
+            }
+        }
+        
+        public static T ToStruct<T>(this byte[] bytes, int startIndex = default, int? size = default)
+        {
+            var _size = size is null ? bytes.Length : size.Value;
+
+            IntPtr buffer = Marshal.AllocHGlobal(_size);
+            try
+            {
+                Marshal.Copy(bytes, startIndex, buffer, _size);
+
+                return Marshal.PtrToStructure<T>(buffer)!;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
             }
         }
     }

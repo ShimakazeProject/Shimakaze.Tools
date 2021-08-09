@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shimakaze.Models.Mix" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="../Shimakaze.Tools.InternalUtils/ByteArrayExtensions.cs" />
+    <Compile Include="../Shimakaze.Tools.InternalUtils/ByteUtils.cs" />
+    <Compile Include="../Shimakaze.Tools.InternalUtils/blowfish.cs" />
+    <Compile Include="../Shimakaze.Tools.InternalUtils/CRC32.cs" />
+    <Compile Include="../Shimakaze.Tools.InternalUtils/SystemExtersions.cs" />
+  </ItemGroup>
+
+</Project>
