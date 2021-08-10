@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -37,7 +38,8 @@ namespace Shimakaze.Tools.Mix.Test
             MixExpander expander = new(fs, Path.Combine("Out", name), new byte[1024], noFlag: noFlag);
             expander.Expand();
 
-            if (File.ReadAllText(Path.Combine("Out", name, "File.txt")) != File.ReadAllText(Path.Combine("Assets", "File.txt")))
+            var path = new[] { Path.Combine("Out", name, "File.txt"), Path.Combine("Out", name, "file.txt") }.First(x => File.Exists(x));
+            if (File.ReadAllText(path) != File.ReadAllText(Path.Combine("Assets", "File.txt")))
                 throw new Exception(testName + " Test failed.");
         }
 
@@ -64,7 +66,8 @@ namespace Shimakaze.Tools.Mix.Test
             MixExpander expander = new(fs, Path.Combine("Out", name), new byte[1024], sr);
             expander.Expand();
 
-            if (File.ReadAllText(Path.Combine("Out", name, "File.txt")) != File.ReadAllText(Path.Combine("Assets", "File.txt")))
+            var path = new[] { Path.Combine("Out", name, "File.txt"), Path.Combine("Out", name, "file.txt") }.First(x => File.Exists(x));
+            if (File.ReadAllText(path) != File.ReadAllText(Path.Combine("Assets", "File.txt")))
                 throw new Exception(callerName + " Test failed.");
         }
     }
