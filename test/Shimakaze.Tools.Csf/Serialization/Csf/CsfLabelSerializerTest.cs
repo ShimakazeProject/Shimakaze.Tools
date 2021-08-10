@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Shimakaze.Tools.Csf.Serialization.Csf;
 
-namespace Shimakaze.Models.Csf.Serialization.Csf.Test
+namespace Shimakaze.Tools.Csf.Serialization.Csf.Test
 {
     [TestClass]
     public class CsfLabelSerializerTest : SerializerTestBase<CsfLabelSerializer, CsfLabel>

@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Shimakaze.Tools.Csf.Serialization.Csf;
 
-namespace Shimakaze.Models.Csf.Serialization.Csf.Test
+namespace Shimakaze.Tools.Csf.Serialization.Csf.Test
 {
     public abstract class SerializerTestBase<TSerializer, T>
         where TSerializer : ICsfSerializer<T>, IAsyncCsfSerializer<T>, new()
