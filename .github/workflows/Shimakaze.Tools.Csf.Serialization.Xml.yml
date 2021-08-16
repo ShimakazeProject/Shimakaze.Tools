@@ -1,0 +1,88 @@
+name: Build and Test Shimakaze.Tools.Csf/Serialization/Xml
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - ".github/workflows/Shimakaze.Tools.Csf.Serialization.Xml.yml"
+      - "src/Shimakaze.Tools.Csf/Serialization/Xml/**"
+      - "test/Shimakaze.Tools.Csf/Serialization/Xml/**"
+      - "global.json"
+      - "nuget.config"
+      
+  pull_request:
+    branches: [ master ]
+    paths:
+      - ".github/workflows/Shimakaze.Tools.Csf.Serialization.Xml.yml"
+      - "src/Shimakaze.Tools.Csf/Serialization/Xml/**"
+      - "test/Shimakaze.Tools.Csf/Serialization/Xml/**"
+      - "global.json"
+      - "nuget.config"
+
+env:
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+  NUGET_USER: ${{ secrets.NUGET_USER }}
+      
+jobs:
+
+  build-csf-Serialization-Xml:
+    name: Build Shimakaze.Tools.Csf/Serialization/Xml
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    
+    - name: Set Nuget Token
+      run: dotnet nuget update source ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN" --store-password-in-clear-text        
+    - name: Restore dependencies
+      run: dotnet restore ./src/Shimakaze.Tools.Csf/Serialization/Xml
+      
+    - name: Build Shimakaze.Tools.Csf
+      run: dotnet build --no-restore ./src/Shimakaze.Tools.Csf/Serialization/Xml -c Release
+      
+    - uses: actions/upload-artifact@v2
+      name: Upload Shimakaze.Tools.Csf to Artifacts
+      with:
+        name: artifact
+        path: ./src/Shimakaze.Tools.Csf/Serialization/Xml/bin/Release
+
+  test-linux-csf-Serialization-Xml:
+    name: Test Shimakaze.Tools.Csf/Serialization/Xml on GNU/Linux Operating System
+    needs: build-csf-Serialization-Xml
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    
+    - name: Set Nuget Token
+      run: dotnet nuget update source ShimakazeProject -u "$NUGET_USER" -p "$NUGET_TOKEN" --store-password-in-clear-text        
+    - name: Test
+      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Xml -c Release
+
+  test-windows-csf-Serialization-Xml:
+    name: Test Shimakaze.Tools.Csf/Serialization/Xml on Windows Operating System
+    needs: build-csf-Serialization-Xml
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    
+    - name: Set Nuget Token
+      run: dotnet nuget update source ShimakazeProject -u "$env:NUGET_USER" -p "$env:NUGET_TOKEN" --store-password-in-clear-text        
+    - name: Test
+      run: dotnet test -l "console;verbosity=detailed" ./test/Shimakaze.Tools.Csf/Serialization/Xml -c Release
