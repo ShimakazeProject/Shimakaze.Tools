@@ -4,8 +4,8 @@ namespace Shimakaze.Tools.Csf.Serialization.Xml
     {
         public static class SchemaUrls
         {
-            public const string BASE_URL = "https://shimakazeproject.github.io";
-            public const string V1 = BASE_URL + "/xml/csf/v1/schema.xsd";
+            public const string BASE_URL = "https://shimakazeproject.github.io/Schemas";
+            public const string V1 = BASE_URL + "/xml/csf/v1.xsd";
         }
         public static readonly string[] LanguageList = new[] {
             "en_US",
