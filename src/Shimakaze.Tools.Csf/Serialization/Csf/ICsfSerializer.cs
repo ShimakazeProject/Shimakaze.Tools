@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿namespace Shimakaze.Tools.Csf.Serialization.Csf;
 
-namespace Shimakaze.Tools.Csf.Serialization.Csf
+#if PREVIEW
+[System.Runtime.Versioning.RequiresPreviewFeatures]
+#endif
+public interface ICsfSerializer<T>
 {
-    public interface ICsfSerializer<T>
-    {
-        T Deserialize(byte[] data);
-        byte[] Serialize(T t);
-    }
+#if PREVIEW
+    static abstract void Serialize(BinaryWriter writer, T t);
+    static abstract T Deserialize(BinaryReader reader);
+#endif
 }

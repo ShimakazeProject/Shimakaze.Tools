@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Models.Csf", "..\Shimakaze.Models.Csf\Shimakaze.Models.Csf.csproj", "{63A14312-10C8-4D17-AA9E-A32D9FD4A75F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Cli", "Cli\Shimakaze.Tools.Csf.Cli.csproj", "{9B300138-2334-4D5C-AF3B-F2EDC5F41142}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serialization", "{D0DFE69F-E2BB-48F4-B0E0-FD1CF2A7EB1C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Serialization.Csf", "Serialization\Csf\Shimakaze.Tools.Csf.Serialization.Csf.csproj", "{E78A7328-C516-4010-9BBF-32BA4D6FA48D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Serialization.Json", "Serialization\Json\Shimakaze.Tools.Csf.Serialization.Json.csproj", "{B4AD7AB1-B930-4806-9CE3-16EE4114271C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Serialization.Xml", "Serialization\Xml\Shimakaze.Tools.Csf.Serialization.Xml.csproj", "{E5AB9B9F-9BE8-4F30-97ED-965E4DFF9051}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{A0E0A7EC-EC67-4954-932F-6FC0BCEFB3A3}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.editorconfig = ..\..\.editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Serialization.Yaml", "Serialization\Yaml\Shimakaze.Tools.Csf.Serialization.Yaml.csproj", "{1B11B081-D2DB-44DF-AD3F-F9F36F201791}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63A14312-10C8-4D17-AA9E-A32D9FD4A75F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63A14312-10C8-4D17-AA9E-A32D9FD4A75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63A14312-10C8-4D17-AA9E-A32D9FD4A75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63A14312-10C8-4D17-AA9E-A32D9FD4A75F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B300138-2334-4D5C-AF3B-F2EDC5F41142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B300138-2334-4D5C-AF3B-F2EDC5F41142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B300138-2334-4D5C-AF3B-F2EDC5F41142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B300138-2334-4D5C-AF3B-F2EDC5F41142}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E78A7328-C516-4010-9BBF-32BA4D6FA48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78A7328-C516-4010-9BBF-32BA4D6FA48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78A7328-C516-4010-9BBF-32BA4D6FA48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78A7328-C516-4010-9BBF-32BA4D6FA48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4AD7AB1-B930-4806-9CE3-16EE4114271C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4AD7AB1-B930-4806-9CE3-16EE4114271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4AD7AB1-B930-4806-9CE3-16EE4114271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4AD7AB1-B930-4806-9CE3-16EE4114271C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5AB9B9F-9BE8-4F30-97ED-965E4DFF9051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5AB9B9F-9BE8-4F30-97ED-965E4DFF9051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5AB9B9F-9BE8-4F30-97ED-965E4DFF9051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5AB9B9F-9BE8-4F30-97ED-965E4DFF9051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B11B081-D2DB-44DF-AD3F-F9F36F201791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B11B081-D2DB-44DF-AD3F-F9F36F201791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B11B081-D2DB-44DF-AD3F-F9F36F201791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B11B081-D2DB-44DF-AD3F-F9F36F201791}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E78A7328-C516-4010-9BBF-32BA4D6FA48D} = {D0DFE69F-E2BB-48F4-B0E0-FD1CF2A7EB1C}
+		{B4AD7AB1-B930-4806-9CE3-16EE4114271C} = {D0DFE69F-E2BB-48F4-B0E0-FD1CF2A7EB1C}
+		{E5AB9B9F-9BE8-4F30-97ED-965E4DFF9051} = {D0DFE69F-E2BB-48F4-B0E0-FD1CF2A7EB1C}
+		{1B11B081-D2DB-44DF-AD3F-F9F36F201791} = {D0DFE69F-E2BB-48F4-B0E0-FD1CF2A7EB1C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE95FE95-42A7-4B6C-BE38-BE96E26E50CF}
+	EndGlobalSection
+EndGlobal

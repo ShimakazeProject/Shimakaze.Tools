@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.0.1</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>ShimakazeProject, frg2089</Authors>
     <PackageProjectUrl>https://github.com/ShimakazeProject/Shimakaze.Tools</PackageProjectUrl>
@@ -12,11 +14,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shimakaze.Models.Csf" Version="1.0.0" />
+    <ProjectReference Include="..\..\..\Shimakaze.Models.Csf\Shimakaze.Models.Csf.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\SystemExtersions.cs" />
+    <Compile Include="..\..\..\Shimakaze.Tools.InternalUtils\EachExtension.cs" />
   </ItemGroup>
 
 </Project>

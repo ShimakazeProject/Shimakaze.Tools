@@ -1,37 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using Shimakaze.Models.Csf;
 using Shimakaze.Tools.InternalUtils;
 
-namespace Shimakaze.Tools.Csf.Serialization.Json.V2
+namespace Shimakaze.Tools.Csf.Serialization.Json.V2;
+
+public class CsfLabelsJsonConverter : JsonConverter<CsfLabel[]>
 {
-    public class CsfLabelsJsonConverter : JsonConverter<CsfLabel[]>
+    public override CsfLabel[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override CsfLabel[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        if (reader.TokenType != JsonTokenType.StartObject)
         {
-            if (reader.TokenType != JsonTokenType.StartObject)
-                throw new JsonException();
+            throw new JsonException();
+        }
 
-            var converter = options.GetConverter<CsfLabel>();
-            var result = new List<CsfLabel>();
-            while (reader.Read())
+        JsonConverter<CsfLabel>? converter = options.GetConverter<CsfLabel>();
+        List<CsfLabel>? result = new();
+        while (reader.Read())
+        {
+            if (reader.TokenType is JsonTokenType.EndObject)
             {
-                if (reader.TokenType is JsonTokenType.EndObject)
-                    break;
-
-                result.Add(converter!.Read(ref reader, options)!);
+                break;
             }
-            return result.ToArray();
+
+            result.Add(converter!.Read(ref reader, options)!);
         }
-        public override void Write(Utf8JsonWriter writer, CsfLabel[] value, JsonSerializerOptions options)
-        {
-            var converter = options.GetConverter<CsfLabel>();
-            writer.WriteStartObject();
-            value.Each(i => converter!.Write(writer, i, options));
-            writer.WriteEndObject();
-        }
+        return result.ToArray();
+    }
+
+    public override void Write(Utf8JsonWriter writer, CsfLabel[] value, JsonSerializerOptions options)
+    {
+        JsonConverter<CsfLabel>? converter = options.GetConverter<CsfLabel>();
+        writer.WriteStartObject();
+        value.Each(i => converter!.Write(writer, i, options));
+        writer.WriteEndObject();
     }
 }

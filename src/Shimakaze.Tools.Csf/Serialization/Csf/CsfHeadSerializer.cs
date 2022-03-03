@@ -1,85 +1,55 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
+
 using Shimakaze.Models.Csf;
-using Shimakaze.Tools.InternalUtils;
 
-namespace Shimakaze.Tools.Csf.Serialization.Csf
+namespace Shimakaze.Tools.Csf.Serialization.Csf;
+
+public class CsfHeadSerializer : ICsfSerializer<CsfHead>
 {
-    public sealed class CsfHeadSerializer : ICsfSerializer<CsfHead>, IAsyncCsfSerializer<CsfHead>
+    private const int STRUCT_LENGTH = 20;
+
+    public static CsfHead Deserialize(BinaryReader reader)
     {
-        private const int STRUCT_LENGTH = 24;
-
-        public byte[] Serialize(CsfHead t)
+        if (reader.ReadInt32() is not Constants.CSF_FLAG_RAW)
         {
-            byte[] result = new byte[STRUCT_LENGTH];
-
-            // Create Memory Space
-            var ptr = Marshal.AllocHGlobal(STRUCT_LENGTH);
-
-            // Copy Structure Data to Memory
-            Marshal.StructureToPtr(t, ptr, false);
-
-            // Copy Flag
-            ByteUtils.GetLittleEndianBytes(Constants.CSF_FLAG_RAW).CopyTo(result.AsMemory(0, 4));
-
-            // Copy data from Memory to Managed Byte Array
-            Marshal.Copy(ptr, result, 4, STRUCT_LENGTH - 4);
-
-            // Free Memory
-            Marshal.DestroyStructure<CsfHead>(ptr);
-
-            // Check Endian
-            ByteUtils.ReverseEndianIfNotLittleEndian(result);
-
-            return result;
+            throw new ArgumentException("It's not CSF File Flag");
         }
 
-        public async Task SerializeAsync(CsfHead t, Stream stream)
-        {
-            await stream.WriteAsync(Serialize(t).AsMemory());
-        }
+        byte[] data = reader.ReadBytes(STRUCT_LENGTH);
 
-        // Fixme: Flag Check
-        public CsfHead Deserialize(byte[] raw)
-        {
-            if (raw.Length < STRUCT_LENGTH)
-                throw new ArgumentException($"data is too short, Need 24 bytes, but is {raw.Length} bytes.");
+        // Create Memory Space
+        IntPtr ptr = Marshal.AllocHGlobal(STRUCT_LENGTH);
 
-            byte[] flag = ByteUtils.GetLittleEndianBytes(Constants.CSF_FLAG_RAW);
+        // Copy data from Managed Byte Array to Memory
+        Marshal.Copy(data, 0, ptr, STRUCT_LENGTH);
 
-            if (!flag.SequenceEqual(raw.AsSpan(0, 4).ToArray()))
-                throw new ArgumentException("It's not CSF File Flag");
+        // Copy data from Memory to Structure
+        CsfHead result = Marshal.PtrToStructure<CsfHead>(ptr);
 
-            byte[] data = raw.AsSpan(0, STRUCT_LENGTH).ToArray();
+        // Free Memory
+        Marshal.DestroyStructure<CsfHead>(ptr);
 
+        return result;
+    }
 
-            // Check Endian
-            ByteUtils.ReverseEndianIfNotLittleEndian(data);
+    public static void Serialize(BinaryWriter writer, CsfHead head)
+    {
 
-            // Create Memory Space
-            var ptr = Marshal.AllocHGlobal(STRUCT_LENGTH - 4);
+        // Create Memory Space
+        IntPtr ptr = Marshal.AllocHGlobal(STRUCT_LENGTH);
+        byte[] data = new byte[STRUCT_LENGTH];
 
-            // Copy data from Managed Byte Array to Memory
-            Marshal.Copy(data, 4, ptr, STRUCT_LENGTH - 4);
+        // Copy Structure Data to Memory
+        Marshal.StructureToPtr(head, ptr, false);
 
-            // Copy data from Memory to Structure
-            var result = Marshal.PtrToStructure<CsfHead>(ptr);
+        // Copy data from Memory to Managed Byte Array
+        Marshal.Copy(ptr, data, 0, 20);
 
-            // Free Memory
-            Marshal.DestroyStructure<CsfHead>(ptr);
+        // Free Memory
+        Marshal.DestroyStructure<CsfHead>(ptr);
 
-            return result;
-        }
-
-        public async Task<CsfHead> DeserializeAsync(Stream stream, byte[] buffer)
-        {
-            await stream.ReadAsync(buffer.AsMemory());
-            ByteUtils.ReverseEndianIfNotLittleEndian(buffer);
-            return Deserialize(buffer);
-        }
-
+        // Write
+        writer.Write(Constants.CSF_FLAG_RAW);
+        writer.Write(data);
     }
 }
