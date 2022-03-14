@@ -45,10 +45,14 @@ internal sealed class WebServer : IDisposable
 
     private async Task Process()
     {
+        Logger.WriteLine($"[Server] Waiting...");
         HttpListenerContext context = await _listener.GetContextAsync();
+        Logger.WriteLine($"[Server] Get Incomming Request");
         HttpListenerRequest request = context.Request;
         HttpListenerResponse response = context.Response;
         string? path = request.Url?.AbsolutePath;
+        Logger.WriteLine($"[Server] Url: {request.Url}");
+        Logger.WriteLine($"[Server] Content Type: {request.ContentType}");
 
         if (string.IsNullOrEmpty(path))
         {
