@@ -1,19 +1,18 @@
-﻿using System;
-namespace Shimakaze.Tools.InternalUtils
+﻿namespace Shimakaze.Tools.InternalUtils;
+
+internal static class ByteArrayExtensions
 {
-    internal static class ByteArrayExtensions
+    public static byte[] Use(this byte[] data, Action<byte[]> action)
     {
+        action(data);
+        return data;
+    }
 
-        public static byte[] Use(this byte[] data, Action<byte[]> action)
+    public static void CheckLength(this byte[] buffer, int length)
+    {
+        if (buffer.Length < length)
         {
-            action(data);
-            return data;
+            throw new ArgumentException($"Buffer too Short! need {length}bytes, but it's {buffer.Length}bytes");
         }
-        public static void CheckLength(this byte[] buffer, int length)
-        {
-            if (buffer.Length < length)
-                throw new ArgumentException($"Buffer too Short! need {length}bytes, but it's {buffer.Length}bytes");
-        }
-
     }
 }

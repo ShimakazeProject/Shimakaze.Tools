@@ -18,20 +18,13 @@ public static class CsfJsonConverterUtils
         return @this.Read(ref reader, typeof(T), options);
     }
 
-    private static JsonSerializerOptions? _csfJsonSerializerOptions = null;
-
     /// <summary>
-    /// (Lazy Design)
+    /// Create New Instance Always
     /// </summary>
     public static JsonSerializerOptions CsfJsonSerializerOptions
     {
         get
         {
-            if (_csfJsonSerializerOptions is JsonSerializerOptions result)
-            {
-                return result;
-            }
-
             JsonSerializerOptions? options = new()
             {
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
@@ -39,7 +32,6 @@ public static class CsfJsonConverterUtils
                 //IncludeFields = true,
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true,
                 AllowTrailingCommas = true,
             };
             options.Converters.Add(new CsfStructJsonConverter());
@@ -49,7 +41,7 @@ public static class CsfJsonConverterUtils
             options.Converters.Add(new CsfValuesJsonConverter());
             options.Converters.Add(new CsfValueJsonConverter());
             options.Converters.Add(new Common.MultiLineStringJsonConverter());
-            return _csfJsonSerializerOptions = options;
+            return options;
         }
     }
 }

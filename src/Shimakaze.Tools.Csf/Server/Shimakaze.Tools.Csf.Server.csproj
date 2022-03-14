@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine.DragonFruit" Version="0.4.0-alpha.22114.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\..\Shimakaze.Tools.InternalUtils\EachExtension.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shimakaze.Models.Csf\Shimakaze.Models.Csf.csproj" />
+    <ProjectReference Include="..\Cli\Shimakaze.Tools.Csf.Cli.csproj" />
+    <ProjectReference Include="..\Serialization\Csf\Shimakaze.Tools.Csf.Serialization.Csf.csproj" />
+    <ProjectReference Include="..\Serialization\Json\Shimakaze.Tools.Csf.Serialization.Json.csproj" />
+    <ProjectReference Include="..\Serialization\Xml\Shimakaze.Tools.Csf.Serialization.Xml.csproj" />
+  </ItemGroup>
+
+</Project>
