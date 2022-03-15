@@ -6,5 +6,9 @@ namespace Shimakaze.Tools.Csf.Common;
 public static class CsfBinaryTools
 {
     public static CsfStruct Load(Stream stream) => CsfStructSerializer.Deserialize(stream);
-    public static void Write(Stream stream, CsfStruct csf) => CsfStructSerializer.Serialize(stream, csf);
+    public static async Task WriteAsync(Stream stream, CsfStruct csf)
+    {
+        CsfStructSerializer.Serialize(stream, csf);
+        await stream.FlushAsync().ConfigureAwait(false);
+    }
 }

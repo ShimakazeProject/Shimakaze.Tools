@@ -27,9 +27,14 @@ public static class CsfXmlTools
 
         return csf;
     }
-    public static void Write(Stream stream, CsfStruct csf, int version = 1)
+    public static async Task WriteAsync(Stream stream, CsfStruct csf, int version = 1, bool format = false)
     {
-        XmlTextWriter writer = new(stream, Encoding.UTF8);
+        XmlWriter writer = XmlWriter.Create(stream, new()
+        {
+            Encoding = Encoding.UTF8,
+            Indent = format,
+            Async = true
+        });
         switch (version)
         {
             case 1:
@@ -40,5 +45,7 @@ public static class CsfXmlTools
             default:
                 throw new("未知的Xml版本");
         }
+        await writer.FlushAsync().ConfigureAwait(false);
+        await stream.FlushAsync().ConfigureAwait(false);
     }
 }

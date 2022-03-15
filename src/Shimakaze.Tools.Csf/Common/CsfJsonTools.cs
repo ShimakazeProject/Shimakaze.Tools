@@ -20,7 +20,7 @@ public static class CsfJsonTools
 
         return csf ?? throw new("Cannot Load Json. Becuse the result is null.");
     }
-    public static async Task WriteAsync(Stream stream, CsfStruct csf, int version = 2, bool format = true)
+    public static async Task WriteAsync(Stream stream, CsfStruct csf, int version = 2, bool format = false)
     {
         var option = version switch
         {
@@ -30,5 +30,6 @@ public static class CsfJsonTools
         };
         option.WriteIndented = format;
         await JsonSerializer.SerializeAsync(stream, csf, option).ConfigureAwait(false);
+        await stream.FlushAsync().ConfigureAwait(false);
     }
 }

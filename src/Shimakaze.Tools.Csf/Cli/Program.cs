@@ -38,44 +38,60 @@ internal class Program
         {
             case "json":
             case "jsonv2":
-                WorkerInfo info = WorkerInfo.GetInfo(args, ".json");
-                CsfStruct csf = await GetCsf(args, info);
-                await CsfJsonTools.WriteAsync(File.Create(info.OutputFullPath), csf, 2).ConfigureAwait(false);
+                {
+                    WorkerInfo info = WorkerInfo.GetInfo(args, ".json");
+                    CsfStruct csf = await GetCsf(args, info);
+                    await using var fs = File.Create(info.OutputFullPath);
+                    await CsfJsonTools.WriteAsync(fs, csf, 2, true).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
+                }
                 break;
             case "jsonv1":
-                info = WorkerInfo.GetInfo(args, ".json");
-                csf = await GetCsf(args, info);
-                await CsfJsonTools.WriteAsync(File.Create(info.OutputFullPath), csf, 1).ConfigureAwait(false);
+                {
+                    WorkerInfo info = WorkerInfo.GetInfo(args, ".json");
+                    CsfStruct csf = await GetCsf(args, info);
+                    await using var fs = File.Create(info.OutputFullPath);
+                    await CsfJsonTools.WriteAsync(fs, csf, 1, true).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
+                }
                 break;
             case "xml":
             case "xmlv1":
-                info = WorkerInfo.GetInfo(args, ".xml");
-                csf = await GetCsf(args, info);
-                CsfXmlTools.Write(File.Create(info.OutputFullPath), csf, 1);
-                break;
-            case "csf":
-                info = WorkerInfo.GetInfo(args, ".csf");
-                csf = await GetCsf(args, info);
-                CsfBinaryTools.Write(File.Create(info.OutputFullPath), csf);
-                break;
-            default:
-                info = WorkerInfo.GetInfo(args, ".json");
-                csf = await GetCsf(args, info);
-                switch (info.InputExtension)
                 {
-                    case ".json":
-                        CsfBinaryTools.Write(File.Create(info.OutputFullPath), csf);
-                        break;
-                    case ".csf":
-                        await CsfJsonTools.WriteAsync(File.Create(info.OutputFullPath.Replace(".json", ".csf")), csf, 2).ConfigureAwait(false);
-                        break;
-                    case ".xml":
-                        CsfBinaryTools.Write(File.Create(info.OutputFullPath), csf);
-                        break;
-                    default:
-                        throw new NotSupportedException("不支持的文件扩展名");
+                    WorkerInfo info = WorkerInfo.GetInfo(args, ".xml");
+                    CsfStruct csf = await GetCsf(args, info);
+                    await using var fs = File.Create(info.OutputFullPath);
+                    await CsfXmlTools.WriteAsync(fs, csf, 1, true).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
                 }
                 break;
+            case "csf":
+                {
+                    WorkerInfo info = WorkerInfo.GetInfo(args, ".csf");
+                    CsfStruct csf = await GetCsf(args, info);
+                    await using var fs = File.Create(info.OutputFullPath);
+                    await CsfBinaryTools.WriteAsync(fs, csf).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
+                }
+                break;
+                //default:
+                //    info = WorkerInfo.GetInfo(args, ".json");
+                //    csf = await GetCsf(args, info);
+                //    switch (info.InputExtension)
+                //    {
+                //        case ".json":
+                //            await CsfBinaryTools.WriteAsync(fs csf).ConfigureAwait(false);
+                //            break;
+                //        case ".csf":
+                //            await CsfJsonTools.WriteAsync(File.Create(info.OutputFullPath.Replace(".json", ".csf")), csf, 2, true).ConfigureAwait(false);
+                //            break;
+                //        case ".xml":
+                //            await CsfBinaryTools.WriteAsync(fs csf).ConfigureAwait(false);
+                //            break;
+                //        default:
+                //            throw new NotSupportedException("不支持的文件扩展名");
+                //    }
+                //    break;
         }
 
         Console.WriteLine("结束");

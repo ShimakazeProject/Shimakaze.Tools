@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shimakaze.Tools.Csf.Server;
+﻿namespace Shimakaze.Tools.Csf.Server;
 internal static class CONSTANTS
 {
     public const int JSON_VERSION = 2;
@@ -13,5 +7,6 @@ internal static class CONSTANTS
 
     public const string QUERY_JSON_VERSION = "jsonVersion";
     public const string QUERY_XML_VERSION = "xmlVersion";
+    public const string QUERY_NEW_VERSION = "newVersion";
     public const string QUERY_FORMAT = "format";
 }
