@@ -4,118 +4,86 @@ using Shimakaze.Tools.Csf.Common;
 
 namespace Shimakaze.Tools.Csf.Cli;
 
-internal sealed record WorkerInfo(
-    string InputFullPath,
-    string FilenameWithoutExtension,
-    string InputExtension,
-    string BasePath,
-    string OutputFullPath)
+internal static class CONSTANTS
 {
-    public static WorkerInfo GetInfo(string[] args, string output_extension, int baseIndex = 1)
-    {
-        string filenameWithoutExtension = Path.GetFileNameWithoutExtension(args[baseIndex]);
-        string extension = Path.GetExtension(args[baseIndex]).ToLower();
-        string basepath = Path.GetDirectoryName(args[baseIndex]) ?? throw new InvalidOperationException("传入了null或根目录");
-        string outputPath = args.Length > baseIndex + 1
-            ? args[baseIndex + 1]
-            : Path.Combine(basepath, filenameWithoutExtension + output_extension);
-
-        return new(args[baseIndex], filenameWithoutExtension, extension, basepath, outputPath);
-    }
+    public const int JSON_VERSION = 2;
+    public const int XML_VERSION = 2;
+}
+/// <summary>
+/// Support Format
+/// </summary>
+public enum SupportFormat
+{
+    /// <summary>
+    /// Binary
+    /// </summary>
+    CSF,
+    /// <summary>
+    /// Json
+    /// </summary>
+    JSON,
+    /// <summary>
+    /// Xaml
+    /// </summary>
+    XAML,
 }
 
-internal class Program
+/// <summary>
+/// Csf Builder
+/// </summary>
+public static class Program
 {
-    private static async Task Main(string[] args)
+    /// <summary>
+    /// Csf Builder
+    /// </summary>
+    /// <param name="input">Input File</param>
+    /// <param name="output">Output File</param>
+    /// <param name="jsonVersion">Json Version</param>
+    /// <param name="xamlVersion">Xaml Version</param>
+    /// <param name="newVersion">New Version</param>
+    /// <param name="reverse">Reverse Build</param>
+    /// <param name="format">Format Output</param>
+    /// <param name="upgrade">Use New Version</param>
+    /// <param name="inputType">Input Type</param>
+    /// <param name="outputType">Output Type</param>
+    /// <returns></returns>
+    /// <exception cref="NotSupportedException"></exception>
+    public static async Task Main(
+        FileInfo input,
+        FileInfo output,
+        int jsonVersion = CONSTANTS.JSON_VERSION,
+        int xamlVersion = CONSTANTS.XML_VERSION,
+        int newVersion = 0,
+        bool reverse = false,
+        bool format = true,
+        bool upgrade = true,
+        SupportFormat inputType = SupportFormat.JSON,
+        SupportFormat outputType = SupportFormat.CSF
+        )
     {
-        // 解析谓词
-        if (args.Length < 1)
+        await using Stream istream = (reverse ? output : input).OpenRead();
+        await using Stream ostream = (reverse ? input : output).Create();
+        CsfStruct csf = (reverse ? outputType : inputType) switch
         {
-            throw new Exception("参数过少");
-        }
-
-        switch (args[0])
-        {
-            case "json":
-            case "jsonv2":
-                {
-                    WorkerInfo info = WorkerInfo.GetInfo(args, ".json");
-                    CsfStruct csf = await GetCsf(args, info);
-                    await using var fs = File.Create(info.OutputFullPath);
-                    await CsfJsonTools.WriteAsync(fs, csf, 2, true).ConfigureAwait(false);
-                    await fs.FlushAsync().ConfigureAwait(false);
-                }
-                break;
-            case "jsonv1":
-                {
-                    WorkerInfo info = WorkerInfo.GetInfo(args, ".json");
-                    CsfStruct csf = await GetCsf(args, info);
-                    await using var fs = File.Create(info.OutputFullPath);
-                    await CsfJsonTools.WriteAsync(fs, csf, 1, true).ConfigureAwait(false);
-                    await fs.FlushAsync().ConfigureAwait(false);
-                }
-                break;
-            case "xml":
-            case "xmlv1":
-                {
-                    WorkerInfo info = WorkerInfo.GetInfo(args, ".xml");
-                    CsfStruct csf = await GetCsf(args, info);
-                    await using var fs = File.Create(info.OutputFullPath);
-                    await CsfXmlTools.WriteAsync(fs, csf, 1, true).ConfigureAwait(false);
-                    await fs.FlushAsync().ConfigureAwait(false);
-                }
-                break;
-            case "csf":
-                {
-                    WorkerInfo info = WorkerInfo.GetInfo(args, ".csf");
-                    CsfStruct csf = await GetCsf(args, info);
-                    await using var fs = File.Create(info.OutputFullPath);
-                    await CsfBinaryTools.WriteAsync(fs, csf).ConfigureAwait(false);
-                    await fs.FlushAsync().ConfigureAwait(false);
-                }
-                break;
-                //default:
-                //    info = WorkerInfo.GetInfo(args, ".json");
-                //    csf = await GetCsf(args, info);
-                //    switch (info.InputExtension)
-                //    {
-                //        case ".json":
-                //            await CsfBinaryTools.WriteAsync(fs csf).ConfigureAwait(false);
-                //            break;
-                //        case ".csf":
-                //            await CsfJsonTools.WriteAsync(File.Create(info.OutputFullPath.Replace(".json", ".csf")), csf, 2, true).ConfigureAwait(false);
-                //            break;
-                //        case ".xml":
-                //            await CsfBinaryTools.WriteAsync(fs csf).ConfigureAwait(false);
-                //            break;
-                //        default:
-                //            throw new NotSupportedException("不支持的文件扩展名");
-                //    }
-                //    break;
-        }
-
-        Console.WriteLine("结束");
-    }
-
-    private static int GetInt(string[] args, int @default, int baseIndex = 2)
-    {
-        return (args.Length > baseIndex + 1
-            && int.TryParse(args[baseIndex + 1], out int result))
-            || (args.Length > baseIndex
-            && int.TryParse(args[baseIndex], out result))
-            ? result
-            : @default;
-    }
-
-    private static async Task<CsfStruct> GetCsf(string[] args, WorkerInfo info, int baseIndex = 1)
-    {
-        return info.InputExtension switch
-        {
-            ".json" => await CsfJsonTools.LoadAsync(File.OpenRead(info.InputFullPath), GetInt(args, 2, baseIndex + 1)).ConfigureAwait(false),
-            ".csf" => CsfBinaryTools.Load(File.OpenRead(info.InputFullPath)),
-            ".xml" => CsfXmlTools.Load(File.OpenRead(info.InputFullPath), GetInt(args, 1, baseIndex + 1)),
-            _ => throw new NotSupportedException("不支持的文件扩展名"),
+            SupportFormat.JSON => await CsfJsonTools.LoadAsync(istream, jsonVersion).ConfigureAwait(false),
+            SupportFormat.XAML => CsfXamlTools.Load(istream, xamlVersion),
+            SupportFormat.CSF => CsfBinaryTools.Load(istream),
+            _ => throw new NotSupportedException(),
         };
+        switch (reverse ? inputType : outputType)
+        {
+            case SupportFormat.JSON:
+                await CsfJsonTools.WriteAsync(ostream, csf, upgrade ? newVersion : jsonVersion, format).ConfigureAwait(false);
+                break;
+            case SupportFormat.XAML:
+                await CsfXamlTools.WriteAsync(ostream, csf, upgrade ? newVersion : xamlVersion, format).ConfigureAwait(false);
+                break;
+            case SupportFormat.CSF:
+                await CsfBinaryTools.WriteAsync(ostream, csf).ConfigureAwait(false);
+                break;
+            default:
+                throw new NotSupportedException();
+        }
+        await ostream.FlushAsync().ConfigureAwait(false);
     }
-
 }

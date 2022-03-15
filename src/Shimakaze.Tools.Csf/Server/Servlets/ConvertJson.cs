@@ -50,6 +50,6 @@ public class ConvertJsonToXmlServlet : ConvertServlet
         int xmlVersion = queries.GetValueOrDefault(CONSTANTS.QUERY_XML_VERSION).GetInt32(CONSTANTS.XML_VERSION);
         bool format = queries.GetValueOrDefault(CONSTANTS.QUERY_FORMAT).GetBoolean(false);
         var csf = await CsfJsonTools.LoadAsync(request.InputStream, jsonVersion).ConfigureAwait(false);
-        await CsfXmlTools.WriteAsync(outputStream, csf, xmlVersion, format).ConfigureAwait(false);
+        await CsfXamlTools.WriteAsync(outputStream, csf, xmlVersion, format).ConfigureAwait(false);
     }
 }

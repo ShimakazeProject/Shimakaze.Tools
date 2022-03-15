@@ -7,7 +7,7 @@ using XmlV1 = Shimakaze.Tools.Csf.Serialization.Xml.V1.CsfStructXmlConverter;
 
 namespace Shimakaze.Tools.Csf.Common;
 
-public static class CsfXmlTools
+public static class CsfXamlTools
 {
     public static CsfStruct Load(Stream stream, int version = 1)
     {
