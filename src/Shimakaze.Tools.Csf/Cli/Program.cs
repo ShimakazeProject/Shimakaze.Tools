@@ -1,5 +1,6 @@
 ﻿
 using Shimakaze.Models.Csf;
+using Shimakaze.Tools.Csf.Common;
 
 namespace Shimakaze.Tools.Csf.Cli;
 

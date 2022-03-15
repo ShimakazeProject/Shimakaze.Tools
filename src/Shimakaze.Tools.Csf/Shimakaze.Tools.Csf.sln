@@ -22,7 +22,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Serialization.Yaml", "Serialization\Yaml\Shimakaze.Tools.Csf.Serialization.Yaml.csproj", "{1B11B081-D2DB-44DF-AD3F-F9F36F201791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shimakaze.Tools.Csf.Server", "Server\Shimakaze.Tools.Csf.Server.csproj", "{58F28A2C-2083-48A9-B213-4B4707FA6E74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Server", "Server\Shimakaze.Tools.Csf.Server.csproj", "{58F28A2C-2083-48A9-B213-4B4707FA6E74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93975934-6176-4046-B33A-F01F968CD66A}"
+	ProjectSection(SolutionItems) = preProject
+		Resources.Designer.t4 = Resources.Designer.t4
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.WebServer", "..\Shimakaze.WebServer\Shimakaze.WebServer.csproj", "{75B1AAD7-BC78-4F19-887C-06CF0D9761E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shimakaze.Tools.Csf.Common", "Common\Shimakaze.Tools.Csf.Common.csproj", "{E006329C-DF14-4AC0-889A-626308F09A99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +67,14 @@ Global
 		{58F28A2C-2083-48A9-B213-4B4707FA6E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58F28A2C-2083-48A9-B213-4B4707FA6E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58F28A2C-2083-48A9-B213-4B4707FA6E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75B1AAD7-BC78-4F19-887C-06CF0D9761E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75B1AAD7-BC78-4F19-887C-06CF0D9761E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75B1AAD7-BC78-4F19-887C-06CF0D9761E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75B1AAD7-BC78-4F19-887C-06CF0D9761E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E006329C-DF14-4AC0-889A-626308F09A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E006329C-DF14-4AC0-889A-626308F09A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E006329C-DF14-4AC0-889A-626308F09A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E006329C-DF14-4AC0-889A-626308F09A99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +86,8 @@ Global
 		{1B11B081-D2DB-44DF-AD3F-F9F36F201791} = {D0DFE69F-E2BB-48F4-B0E0-FD1CF2A7EB1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_PrefixTranslations = False
 		SolutionGuid = {BE95FE95-42A7-4B6C-BE38-BE96E26E50CF}
+		RESX_PrefixFieldType = Comment
 	EndGlobalSection
 EndGlobal

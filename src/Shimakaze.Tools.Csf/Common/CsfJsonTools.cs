@@ -5,7 +5,7 @@ using Shimakaze.Models.Csf;
 using JsonV1 = Shimakaze.Tools.Csf.Serialization.Json.V1.CsfJsonConverterUtils;
 using JsonV2 = Shimakaze.Tools.Csf.Serialization.Json.V2.CsfJsonConverterUtils;
 
-namespace Shimakaze.Tools.Csf.Cli;
+namespace Shimakaze.Tools.Csf.Common;
 
 public static class CsfJsonTools
 {

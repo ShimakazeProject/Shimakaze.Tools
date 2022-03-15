@@ -1,9 +1,8 @@
-﻿
-using Shimakaze.Models.Csf;
+﻿using Shimakaze.Models.Csf;
 
 using Shimakaze.Tools.Csf.Serialization.Csf;
 
-namespace Shimakaze.Tools.Csf.Cli;
+namespace Shimakaze.Tools.Csf.Common;
 public static class CsfBinaryTools
 {
     public static CsfStruct Load(Stream stream) => CsfStructSerializer.Deserialize(stream);

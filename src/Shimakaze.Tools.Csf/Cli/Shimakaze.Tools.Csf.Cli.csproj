@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Serialization\Csf\Shimakaze.Tools.Csf.Serialization.Csf.csproj" />
-    <ProjectReference Include="..\Serialization\Json\Shimakaze.Tools.Csf.Serialization.Json.csproj" />
-    <ProjectReference Include="..\Serialization\Xml\Shimakaze.Tools.Csf.Serialization.Xml.csproj" />
+    <ProjectReference Include="..\Common\Shimakaze.Tools.Csf.Common.csproj" />
   </ItemGroup>
 
 </Project>

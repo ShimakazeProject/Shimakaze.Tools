@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Serialization\Csf\Shimakaze.Tools.Csf.Serialization.Csf.csproj" />
+    <ProjectReference Include="..\Serialization\Json\Shimakaze.Tools.Csf.Serialization.Json.csproj" />
+    <ProjectReference Include="..\Serialization\Xml\Shimakaze.Tools.Csf.Serialization.Xml.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Shimakaze.Tools.Csf.Server.WebSystem;
+namespace Shimakaze.WebServer;
 
 
 /// <summary>
@@ -15,10 +15,8 @@ public delegate void ServletDelegate(HttpListenerRequest request, HttpListenerRe
 /// </summary>
 /// <param name="Attribute">Attribute</param>
 /// <param name="Servlet">Servlet</param>
-public sealed record ServletInfo(ServletAttribute Attribute, ServletBase Servlet)
+internal sealed record ServletInfo(WebServletAttribute Attribute, Type Servlet)
 {
-    internal ServletInfo((ServletBase Servlet, ServletAttribute Attribute) tuple) : this(tuple.Attribute, tuple.Servlet)
+    internal ServletInfo((Type Servlet, WebServletAttribute Attribute) tuple) : this(tuple.Attribute, tuple.Servlet)
     { }
-
-    internal void Invoke(HttpListenerRequest request, HttpListenerResponse response) => Servlet.OnRequest(request, response);
 }

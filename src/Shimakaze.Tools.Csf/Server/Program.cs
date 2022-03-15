@@ -1,14 +1,19 @@
-﻿using Shimakaze.Tools.Csf.Server.WebSystem;
+﻿using Shimakaze.WebServer;
 
 namespace Shimakaze.Tools.Csf.Server;
 
 static class Program
 {
     /// <summary>
-    /// Start Language Server
+    /// Start CSF Language Server
     /// </summary>
     /// <param name="host">Listen Host</param>
-    /// <param name="port">Http Port</param>
+    /// <param name="port">Web Server Port</param>
     /// <param name="ssl">Use SSL/TLS</param>
-    static async Task Main(string host = "localhost", ushort port = 45082, bool ssl = false) => await new WebServer(host, port, ssl).Run();
+    /// <param name="noColorOutput">Disable Colorize Output</param>
+    static async Task Main(string host = "localhost", ushort port = 45082, bool ssl = false, bool noColorOutput = false)
+    {
+        Logger.UseColor = !noColorOutput;
+        await new ServletServer(host, port, ssl).Run();
+    }
 }

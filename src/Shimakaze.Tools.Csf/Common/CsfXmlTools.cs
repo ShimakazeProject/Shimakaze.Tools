@@ -5,7 +5,7 @@ using Shimakaze.Models.Csf;
 
 using XmlV1 = Shimakaze.Tools.Csf.Serialization.Xml.V1.CsfStructXmlConverter;
 
-namespace Shimakaze.Tools.Csf.Cli;
+namespace Shimakaze.Tools.Csf.Common;
 
 public static class CsfXmlTools
 {

@@ -1,19 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-namespace Shimakaze.Tools.Csf.Server.WebSystem;
+namespace Shimakaze.WebServer;
 
 /// <summary>
 /// Servlet Attribute
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-public sealed class ServletAttribute : Attribute
+public sealed class WebServletAttribute : Attribute
 {
     /// <summary>
     /// Servlet Attribute
     /// </summary>
     /// <param name="path"></param>
     /// <param name="name">Servlet Name</param>
-    public ServletAttribute(string path, string name = "<Untitled Servlet>")
+    public WebServletAttribute(string path, string name = "<Untitled Servlet>")
     {
         Path = path;
         Name = name;
@@ -27,4 +27,10 @@ public sealed class ServletAttribute : Attribute
     /// Request Path
     /// </summary>
     public string Path { get; }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"{{{nameof(Name)}={Name}, {nameof(Path)}={Path}}}";
+    }
 }
